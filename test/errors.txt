@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 34: choice menuitem expects a non-empty block.
-    '1번':
-         ^
+File "game/script.rpy", line 127: expected statement.
+    persistent.love[0] = 0
+                       ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Tue Nov  8 21:55:24 2022
+Mon Nov 14 19:53:08 2022
