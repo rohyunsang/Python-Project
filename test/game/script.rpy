@@ -67,8 +67,11 @@ init -5 python:
     style.fixed_bar.right_bar = Frame("images/bar_empty.png", 0, 0)
  
 # 호감도 수치
-define persistent.love = [80, 20, 10]
-
+define persistent.love = [0, 0, 0, 0]
+#love[0] = jung
+#love[1] = jeon
+#love[2] = lee
+#love[3] = han 
 
 # image 문을 사용해 이미지를 정의합니다.
 # image eileen happy = "eileen_happy.png"
@@ -76,8 +79,12 @@ image winter idle = "images/winter.jpg"
 image winter idle2 = "images/winter2.jpg"
 
 # 게임에서 사용할 캐릭터를 정의합니다.
-define lee = Character('이영민', color="#32a732")
-define win = Character('winter',color = "#3db7b1")
+define kim = Character('김건우', color="#32a732")
+
+define jung = Character('정다희',color = "#3db7b1")
+define jeon = Character('전민정',color = "#111111")
+define lee = Character('이은채',color = "#1f24b4")
+define han = Character('한서희',color = "#138211")
 
 
 # 여기에서부터 게임이 시작합니다.
