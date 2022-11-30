@@ -1,7 +1,7 @@
 ﻿# 이 파일에 게임 스크립트를 입력합니다.
 
 init:
-    screen stat_overlay:
+    screen jung_favority:
         # 호감도 창
         frame:
             # 호감도 창 테두리와 컨텐츠와의 간격
@@ -17,36 +17,89 @@ init:
             # 텍스트와 호감도 바가 수직으로 배치됨
             vbox:
                 
-                text "호감도{space=15}[persistent.love[0]]" size 16
+                text "jung 호감도{space=15}[persistent.junglove]" size 16
                 bar:
-                    value persistent.love[0]
+                    value persistent.junglove
                     # 호감도 바 범위
                     range 100
                     
                     # 아래 지정한 fixed_bar 스타일을 따름
                     style "fixed_bar"
                     
-                # 다음 캐릭터의 바와 이전 캐릭터 텍스트 사이의 간격
-                # padding을 쓸 경우, 바, 텍스트 간격 모두 동일하게 적용됨
-                text " " size 3
+    screen jeon_favority:
+        # 호감도 창
+        frame:
+            # 호감도 창 테두리와 컨텐츠와의 간격
+            padding (15, 15)
+            # 호감도 배경 (반투명 - 뒤 2자리 코드가 투명도)
+            background "#4f5a6680"
+            # x, y축 정렬
+            align (1.0, 0.0)
+            # 호감도 창 크기
+            xmaximum 250
+            ymaximum 200
  
-                # text "BB{space=15}[persistent.love[1]]" size 16
+            # 텍스트와 호감도 바가 수직으로 배치됨
+            vbox:
+                
+                text "jeon 호감도{space=15}[persistent.jeonlove]" size 16
+                bar:
+                    value persistent.jeonlove
+                    # 호감도 바 범위
+                    range 100
+                    
+                    # 아래 지정한 fixed_bar 스타일을 따름
+                    style "fixed_bar"
+    screen lee_favority:
+        # 호감도 창
+        frame:
+            # 호감도 창 테두리와 컨텐츠와의 간격
+            padding (15, 15)
+            # 호감도 배경 (반투명 - 뒤 2자리 코드가 투명도)
+            background "#4f5a6680"
+            # x, y축 정렬
+            align (1.0, 0.0)
+            # 호감도 창 크기
+            xmaximum 250
+            ymaximum 200
  
-                # bar:
-                #     value persistent.love[1]
-                #     range 100
-                #     xalign 0.0
-                #     style "fixed_bar"
+            # 텍스트와 호감도 바가 수직으로 배치됨
+            vbox:
+                
+                text "lee 호감도{space=15}[persistent.leelove]" size 16
+                bar:
+                    value persistent.leelove
+                    # 호감도 바 범위
+                    range 100
+                    
+                    # 아래 지정한 fixed_bar 스타일을 따름
+                    style "fixed_bar"
+    screen han_favority:
+        # 호감도 창
+        frame:
+            # 호감도 창 테두리와 컨텐츠와의 간격
+            padding (15, 15)
+            # 호감도 배경 (반투명 - 뒤 2자리 코드가 투명도)
+            background "#4f5a6680"
+            # x, y축 정렬
+            align (1.0, 0.0)
+            # 호감도 창 크기
+            xmaximum 250
+            ymaximum 200
  
-                # text " " size 3
- 
-                # text "love{space=15}[persistent.love[2]]" size 16
- 
-                # bar:
-                #     value persistent.love[2]
-                #     range 100
-                #     xalign 0.5
-                #     style "fixed_bar"
+            # 텍스트와 호감도 바가 수직으로 배치됨
+            vbox:
+                
+                text "han 호감도{space=15}[persistent.hanlove[0]]" size 16
+                bar:
+                    value persistent.hanlove[0]
+                    # 호감도 바 범위
+                    range 100
+                    
+                    # 아래 지정한 fixed_bar 스타일을 따름
+                    style "fixed_bar"
+                  
+                
  
  
 init -5 python:
@@ -67,7 +120,11 @@ init -5 python:
     style.fixed_bar.right_bar = Frame("images/bar_empty.png", 0, 0)
  
 # 호감도 수치
-define persistent.love = [0, 0, 0, 0]
+define persistent.junglove = 0
+define persistent.jeonlove = 0
+define persistent.leelove = 0
+define persistent.hanlove = [0,]
+
 #love[0] = jung
 #love[1] = jeon
 #love[2] = lee
@@ -85,14 +142,15 @@ define jung = Character('정다희',color = "#3db7b1")
 define jeon = Character('전민정',color = "#111111")
 define lee = Character('이은채',color = "#1f24b4")
 define han = Character('한서희',color = "#138211")
+define win = Character('김윈터',color = "#142421")
 
 
 # 여기에서부터 게임이 시작합니다.
 label start:                                          #scene 1
 
-    scene bg building evening
+    scene bg building
     
-    show screen stat_overlay # status window open
+    show screen jung_favority # status window open
 
     lee "윈터야 안뇽" 
 
@@ -122,16 +180,18 @@ label start:                                          #scene 1
 label root_1:                                        #scene 2-1
     show winter idle
     win "1번이 더 이쁘지? 히히"
-    $ persistent.love[0] += 30
+    $ persistent.junglove += 30
+    if persistent.junglove > 100:
+        $ persistent.junglove = 100
     jump script2
     
 
 label root_2:                                        #scene 2-2
     show winter idle2 
     win "2번은 안이뻐 사실"
-    $ persistent.love[0] -= 30
-    if persistent.love[0] < 0: # 0 미만일 경우 0으로 처리
-        $ persistent.love[0] = 0 
+    $ persistent.junglove -= 30
+    if persistent.junglove < 0: # 0 미만일 경우 0으로 처리
+        $ persistent.junglove = 0 
     jump script2
 
 label script2:                                       #scene 3
@@ -140,8 +200,24 @@ label script2:                                       #scene 3
 
     lee "호감도 창을 지워볼까? "
     
-    hide screen stat_overlay 
+    hide screen jung_favority
+
+    lee "다른 사람 호감도 창을 뛰워 볼까?"
+
+    show screen han_favority
+
+    lee "이렇게 하는게 맞노? han favoirty" 
+
+    hide screen han_favority
+
+    show screen jeon_favority
+
+    lee "이렇게 하는게 맞노? jeon_favority" 
+
+    hide screen jeon_favority
+
+    show screen lee_favority
+
+    lee "이렇게 하는게 맞노? lee_favority" 
 
     return 
-
-    
