@@ -25,55 +25,7 @@ init:
                     
                     # 아래 지정한 fixed_bar 스타일을 따름
                     style "fixed_bar"
-                    
-    screen jeon_favority:
-        # 호감도 창
-        frame:
-            # 호감도 창 테두리와 컨텐츠와의 간격
-            padding (15, 15)
-            # 호감도 배경 (반투명 - 뒤 2자리 코드가 투명도)
-            background "#4f5a6680"
-            # x, y축 정렬
-            align (1.0, 0.0)
-            # 호감도 창 크기
-            xmaximum 250
-            ymaximum 200
- 
-            # 텍스트와 호감도 바가 수직으로 배치됨
-            vbox:
-                
-                text "jeon 호감도{space=15}[persistent.jeonlove]" size 24
-                bar:
-                    value persistent.jeonlove
-                    # 호감도 바 범위
-                    range 100
-                    
-                    # 아래 지정한 fixed_bar 스타일을 따름
-                    style "fixed_bar"
-    screen lee_favority:
-        # 호감도 창
-        frame:
-            # 호감도 창 테두리와 컨텐츠와의 간격
-            padding (15, 15)
-            # 호감도 배경 (반투명 - 뒤 2자리 코드가 투명도)
-            background "#4f5a6680"
-            # x, y축 정렬
-            align (1.0, 0.0)
-            # 호감도 창 크기
-            xmaximum 250
-            ymaximum 200
- 
-            # 텍스트와 호감도 바가 수직으로 배치됨
-            vbox:
-                
-                text "lee 호감도{space=15}[persistent.leelove]" size 24
-                bar:
-                    value persistent.leelove
-                    # 호감도 바 범위
-                    range 100
-                    
-                    # 아래 지정한 fixed_bar 스타일을 따름
-                    style "fixed_bar"
+        
     screen han_favority:
         # 호감도 창
         frame:
@@ -90,9 +42,9 @@ init:
             # 텍스트와 호감도 바가 수직으로 배치됨
             vbox:
                 
-                text "han 호감도{space=15}[persistent.hanlove[0]]" size 24
+                text "han 호감도{space=15}[persistent.hanlove]" size 24
                 bar:
-                    value persistent.hanlove[0]
+                    value persistent.hanlove
                     # 호감도 바 범위
                     range 100
                     
@@ -121,9 +73,7 @@ init -5 python:
  
 # 호감도 수치
 define persistent.junglove = 10
-define persistent.jeonlove = 20
-define persistent.leelove = 0
-define persistent.hanlove = [40,]
+define persistent.hanlove = 40
 
 #love[0] = jung
 #love[1] =jeon
@@ -217,11 +167,7 @@ image jung jung_pretty3 = "jung_pretty3.png"
 define kim = Character('김건우', color="#32a732")
 define ym = Character('이영민', color="#c425aa")####
 define jung = Character('정다희',color = "#3db7b1")
-define jeon = Character('전민정',color = "#111111")
-define lee = Character('이은채',color = "#1f24b4")
 define han = Character('한서희',color = "#138211")
-define win = Character('김윈터',color = "#142421")
-
 
 # 여기에서부터 게임이 시작합니다.
 label start:                                          #scene 1
@@ -284,14 +230,14 @@ label start:                                          #scene 1
     han "나이가 24살.. 지금 대학생? 어 단국대 다니시네요?? 저돈데...ㅎㅎ"
     "한서희:(건우? 훈훈하게 생겼네)"
     show screen han_favority
-    $ persistent.hanlove[0] = 0
+    $persistent.hanlove = 0
 
     menu:
         "건우가 물어본다.."
 
         "혹시 어제 볶신에 있지 않으셨어요?" :
             han "어! 어케아셨어요 하긴, 제 미모가 좀 눈에 띄긴 하죠"
-            $ persistent.hanlove[0] +=15
+            $ persistent.hanlove +=15
             "호감도가 15 증가했습니다."
             "건우:(처음부터 예쁘다하면 너무 들이대는 거 같으니깐 어물쩍 넘겨야겠다.)"
             kim "하하 그런가? 어제 친구랑 거기서 한잔했어요 ㅋㅋ"
@@ -305,12 +251,12 @@ label start:                                          #scene 1
             menu:
                 "윤상이 모르면 간첩이죠, 컴공과 천재 게임개발자잖아요. 지금 피씨방 점유율 1등게임 개발자를 모를수가 있나요 하하":
                     han "(헐 대박!!! 나중에 소개해달라고해야겠다.)"
-                    $ persistent.hanlove[0] +=15
+                    $ persistent.hanlove +=15
                     "호감도가 15 올랐습니다."
                     
                 "아니요":
-                    han "와 말투 진짜 싸가지없네;; 그리고 어떻게 컴공이 노윤상을 몰라;; 이사람 html으로 프로그래밍 한다고 할거같은데;; "
-                    $ persistent.hanlove[0] -=40
+                    han "와 말투 진짜 싸가지없네;; 그리고 어떻게 컴공이 노윤상을 몰라;;"
+                    $ persistent.hanlove -=40
                     "호감도가 40 내려갔습니다."
     han "건우씨 몇살이에요?"
     kim "저 24살이요"
@@ -332,64 +278,7 @@ label start:                                          #scene 1
 
     kim "아.. 안녕하세요! 오늘부터 알바하게된 김건우라고 합니다."
 
-    show jeon hi
-    hide jeon hi
-    show jeon normal
-
-    jeon "안녕하세요~ 전민정이라고해요~"
-
-    "머리에 샤넬 머리띠를 한 키가 한 155정도 돼보이는 여자가 날 한번 째려보더니 안녕하세요 라고 인사한다." 
-
-    "그리곤 키 뭉텅이를 하나 들더니 따라 오라고 한다. "
-
-    "따라 갔더니 면접봤던 그장소에 알바복이 여러개 걸려있었다. "
-
-    "내 사이즈에 맞는 옷을 꺼내 입고 , 다시 피시방으로 향했다."
-
-    jeon "피방알바 해봤다 했죠? 그럼 웬만한건 다 아시겠네요?"
-
-    kim "네네" 
-
-    "system : 41번 자리에서 음식주문이 들어왔습니다." 
-
-    jeon "치즈돈까스라볶이 들어왔다 치즈돈까스 라볶이 만드는법 알려드릴게요"
-
-    "냉장고에서 재료를 꺼내오는 전민정"
-
-    jeon  "다른피시방어디에서 해봤어요?"
-
-    kim "정자에서 했었는데 거기는 코로나 때문에 망해서 멀리까지 왔어요"
-
-    jeon  "어디살아요?"
-
-    kim "저 정자동 살아요 오는데 한 30분 ? 걸려요"
-
-    jeon  "음.. 조금 머네요" 
-
-    jeon  "이름이 어떻게 되세요?"
-
-    kim "김건우에요 나이는 24살!"
-
     
-
-    jeon  "저는 22살, 전민정이에요"
-
-    "(ㅎㅎ 내가 오빠네 오빠라고 해주면 좋겠다.)"
-
-    jeon  "라볶이 는 이렇게 이렇게 돈까스는 튀김기 알람 2분 울리면 한번 뒤집어 줘요."
-
-    kim "아 아~"
-
-    jeon  "그리고 라볶이 위에 돈까스 잘라서 나가주면 돼요 "
-
-    kim "쉽네요 ㅎㅎ. 제가 가져다 주고 올게요!" 
-
-    jeon  "네"
-
-    "2시 51분, 정다희가 출근했다."
-    hide jeon normal
-
-    show jeon normal at right
     show jung normal at left
 
     jung "ㅎㅇㅎㅇ 어? 주말오후 신입맞죠!!!!"
@@ -398,54 +287,47 @@ label start:                                          #scene 1
 
     jung "저는 정다희에요 24살"
 
-    kim "어 동갑이네요! (와 진짜 개이쁘다 여긴 뭐 얼굴보고 뽑나? 아니 진짜 뭐지? )"
-
-    jeon "저 가볼게요 다희언니 고생하고 건우오빠 담주에 뵈여"
+    kim "어 동갑이네요! (와 이분도 진짜 아름다우시다..)"
     
+    $persistent.junglove = 10
+
     hide jeon normal at right
 
-    jung "혹시 담배펴요 건우씨 ?" 
+    menu:
+        "다희씨는 여기서 얼마나 일했어요?":
+            jung "여기서 일한지 별로안됐어요."
+            kim "(왠지 말이 잘 통할것같은 기분이 든다.)"
 
-    kim "아 군대 갔다와서 진짜 끊어 보려했는데 잘 안되더라구요 담배 하나 피러 가시죠"
-
-    kim "(입에 담배를 물며) 저희 말 편하게 할래요? (와 진짜 내 스타일이다..)"
-
-    jung "ㅇㅇ 좋치 나 라이터좀 빌려주라"
-
-    kim "다희 너 여기서 얼마나 일했어 ?"
-
-    jung "나도 여기서 일한지 별로안됐어 "
-
-    kim "다희 너는 전공이 뭐야 ?"
-
-    jung " 나 컴공과 ! 인데 졸업하고 회사다니다가 지금 이직 준비중이라 알바하구있어" 
-
-    kim "어 ? 나도 컴공과인데 오오"
-
-    jung "어 진짜 ?"
-
-    kim "웅 너 멋지다 회사도 다녔구"
+        "다희씨는 전공이 뭐에요?":
+            jung "저 컴공 졸업하고 회사다니다가 지금 취직 준비중이라 알바하구있어요" 
+            kim "저도 컴공이에요!!"
+            jung "와 신기하다~"
+            $persistent.junglove +=5
+            "호감도가 5 증가했습니다."
 
     "142번 자리에서 음식주문이 들어왔습니다."
 
-    kim "매콤떡갈비마요? 이건 어떻게 만들어?"
+    kim "매콤떡갈비마요? 이건 어떻게 만들어요?"
 
-    jung "알려줄게 따라와봐."
+    jung "알려줄게요 따라오세요."
 
-    "…....(알바끝)"
+    scene bg pckitchen
+
+    show jung smile
+
+    "....(알바끝)"
 
     kim "수고했어 다희야 친절하게 알려줘서 고마웠어"
 
     jung "뭘 ..ㅎㅎ 수고했어 너두 너 이제 알바끝났는데 뭐하게? 술먹을래?"
 
-    "(아니 진짜 뭐지? 이렇게이쁜여자가 나한테 술을먹자한다고? 이거 장기 때이는거아니야? 아니 나 드디어 여자친구 생기는건가? 아니 신혼여행은 ? 어디로가지? 손주이름은 뭐로하는게 좋치 ?진짜 뭐지 나 드디어 “성공”해버린 건가 ? )"
+    "(아니 진짜 뭐지? 이렇게 이쁜 여자가 나한테 술을먹자한다고?)"
     hide jeon_favority
     show screen jung_favority
-    $persistent.junglove = 10
     menu:
         "나 대기소과제해야해서...":
             jung "응 알겠어 다음주에 보자!"
-            kim "(아니다,, 집에가봤자 어차피 과제는 안하고 게임할거같아 그럴바엔 걍 술이라도 먹어야겠다)"
+            kim "(아니다,, 오늘 아니면 언제 또 이런사람이랑 술먹어보겠냐 걍 술마시러가야겠다.)"
             kim "다희야 가자 술먹으러 나 어차피 집에가도 게임할거같아 ㅋㅋ"
 
         
@@ -457,6 +339,9 @@ label start:                                          #scene 1
 
     scene bg bar
     "어쩌다 보니 술집에 오게 되었다.. 어색해 죽겠네 그래도 믿기지가 않는구먼.."
+
+    show jung cute
+
     jung "안주는 뭐로할래?"
 
     menu:
@@ -465,25 +350,81 @@ label start:                                          #scene 1
             jung "그거 좋다!"
             "호감도가 10 증가하였습니다."
         "민트초코화채":
+            $persistent.junglove +=15
+            jung "그거 좋다!"
+            "호감도가 15 증가하였습니다."                    
+        "오뎅탕":
             $persistent.junglove +=20
             jung "그거 좋다!"
-            "호감도가 20 증가하였습니다."                    
-        "오뎅탕":
-            $persistent.junglove +=30
-            jung "그거 좋다!"
-            "호감도가 30 증가하였습니다."
+            "호감도가 20 증가하였습니다."
         
     jung "그나저나 오늘 술마시고 싶었는데 ㅋㅋ 좋네"
     $persistent.junglove +=10
     "호감도가 10 증가하였습니다."
 
-    kim "너는 어쩌다 이직하게 된거야?"
+    menu:
+        "오늘 왜 술먹고 싶었는데?":
+            jung "요즘 취준때매 힘들어서 그랬어 "
+            kim "그렇구나,, 취준하기 힘들겠다.. 힘내!"
+            jung "고마워 ㅋㅋ"
+            $persistent.junglove +=5
+            "호감도가 5증가 하였습니다."
+        
+        "...ㅎㅎ그랬구나":
+            jung "(뭐야 싱겁게,,)"
+            $persistent.junglove -=5
+            "호감도가 5감소하였습니다."
 
-    jung "나 .. 음 거기 회사는 내가 계속 다녀도 실력도 늘거 같지도 않고 발전이 없을거 같아서 그랬어"
+    jung "내 MBTI맞춰볼래??"
 
-    kim "그랬구나 나도 취업하구 싶다. 아직 대학생이라 ㅜㅜ"
+    menu:
+        "E/I중에 고르세요"
+        "E":
+            jung "그리고?"
+            $persistent.junglove +=5
+            "호감도가 5증가 하였습니다."
+        
+        "I":
+            jung "땡 E로시작해"
+    menu:
+        "S/N중에 고르세요"
+        "S":
+            jung "그리고?"
+            $persistent.junglove +=5
+            "호감도가 5증가 하였습니다."
+        
+        "N":
+            jung "땡 S야"
+    menu:
+        "F/T중에 고르세요"
+        "F":
+            jung "그리고?"
+            $persistent.junglove +=5
+            "호감도가 5증가 하였습니다."
+        
+        "T":
+            jung "땡 T야"
+    menu:
+        "P/J중에 고르세요"
+        "P":
+            jung "ESFP가 내 MBTI야"
+            $persistent.junglove +=5
+            "호감도가 5증가 하였습니다."
+        
+        "J":
+            jung "땡 P야, ESFP"
 
-    jung "그건 환상이야 너두 다녀봐 ㅎㅎ(멋쩍은 웃음)" 
+    menu:
+        "나는 MBTI과몰입하는 거 싫더라":
+            jung "(뭐지 나 들으라고하는 이야기인가;;)"
+            $persistent.junglove -=10
+            "호감도가 10감소 하였습니다."
+        
+        "ESFP들은 연예인같다던데 너 진짜 연예인같다 윈터 닮았다는 소리 안들었어?":
+            jung "아진짜 뭐래~ "
+            jung "(얘 뭐야뭐야~ 나한테 관심있나봐 미쳤나봐)"
+            $persistent.junglove +=15
+            "호감도가 15 올랐습니다."
 
     " (2시간 후 : 현재 시간 12시 30분 ) "
 
@@ -502,7 +443,8 @@ label start:                                          #scene 1
     "어느 덧 막차가 끊길 시간이다. 다희는 서둘러 역쪽으로 떠났다."
     
     kim "조심히 들어가~ 카톡할게"
-    show jung_smile2
+    hide jung cute
+    show jung smile2
     jung "어 너도 조심히 들어가"
 
 #######################################################################
@@ -549,12 +491,6 @@ label start:                                          #scene 1
     kim "(다희와의 데이트인데 어떻게 늦을 수가 있단 말인가..)"
     kim "(그나저나 오늘 다희는 말도안되게 예쁘군)"
     kim "가..갈까 ? "
-    jung "츄러스먹자!!"
-    kim "낫배드"
-    jung "토끼머리띠도하자!!"
-    kim "진짜 낫배드"
-    jung "교복도 빌리자"
-    kim "진짜 진짜 낫배드"
 
     jung "빨리 가서 재밌는거 많이 타자."
     kim "(설렘반 떨림반 두근거리는 마음을 부여잡고 롯데월드에 입장했다.)"
@@ -562,7 +498,7 @@ label start:                                          #scene 1
     show jung_pretty
     "그 후 우리는 말도안되게 재미난 시간을 보냈다. 어트렉션 줄을 기다리며 다희와 나는 쉬지않고 대화했다." 
     hide jung_pretty
-    "평상시에 여자랑 대화할 때면, 꿔다놓은 보릿자루마냥 말이 없던 나였지만 오늘 다희와의 대화는 전성기 유재석을 능가하는 입담 퍼포먼스였다. "
+    "평상시에 여자랑 대화할 때면, 꿔다놓은 보릿자루마냥 말이 없던 나였지만 오늘 다희와의 대화는 물흐르듯이 잘 흘러갔다. "
     $persistent.junglove +=10
     "호감도 10이 증가했습니다"
     show jung_pretty2
@@ -574,59 +510,52 @@ label start:                                          #scene 1
     "토끼머리띠도 끼고 사진을 같이 찍던중, 우리 커플 컨셉으로 사진찍자라는 말에 나는 당황해 아무말도 하지 못했는데 다희가 내 어깨에 살짝 기대어 사진을 찍었다. "
     $persistent.junglove +=10
     "호감도 10이 증가했습니다"
-    "역시 여자들은 셀카를 많이 찍어서인지 잘나왔지만 나는 살짝어색한표정으로 웃고있었다. 슬슬 어두워지고 안으로 들어와 퍼레이드를 보던중 좀비가 나오는 호러 어트렉션에서 커플 맞으시죠? 라는 직원의 멘트에 살짝 쑥스러워하며 웃는 다희의 얼굴이 생각이나 살며시 웃었다. "
+    "나는 살짝어색한표정으로 웃고있었다. 슬슬 어두워지고 안으로 들어와 퍼레이드를 보던중 좀비가 나오는 호러 어트렉션에서 커플 맞으시죠? 라는 직원의 멘트에 살짝 쑥스러워하며 웃는 다희의 얼굴이 생각이나 살며시 웃었다. "
     $persistent.junglove +=10
     "호감도 10이 증가했습니다"
     "고백은 그날의 분위기다.. 나 김건우 오늘 고백을 해야겠다는 생각이들었다."
 
+
     scene bg_lotteworldnight
+    show jung_pretty3
     kim "다희야..."
     jung "너무 즐겁다 건우야~~~ 엉 왜??"
     kim "우리...... 사......"
-    kim "(뭐지...... 갑자기 말이 안나온다...)"
-    kim "우리...... 사......ㄱ  ㅜ   ㅣ"
-    jung "응? 무슨말하는거야?? 건우야 괜찮아?!!"
-    
-    play music "alarm.mp3" loop
 
-    "건우야 건우야~~~~~~"
-    stop music
+    if persistent.junglove<100:
+        kim "(뭐지...... 갑자기 말이 안나온다...)"
+        kim "우리...... 사......ㄱ  ㅜ   ㅣ"
+        jung "응? 무슨말하는거야?? 건우야 괜찮아?!!"
+        
+        play music "alarm.mp3" loop
 
-    scene bg_room
-    play music "alarm.mp3" loop
+        
+        stop music
 
-    kim "...................."
-    stop music
-    ""
-    play music "last.mp3" 
-    "어느 깊은 가을밤,잠에서 깨어난 제자가 울고있었다."
-    "그 모습을 본 스승이 기이하게 여겨 제자에게 물었다."
-    "무서운 꿈을 꾸었느냐?"
-    "아닙니다"
-    "슬픈 꿈을 꾸었느냐?"
-    "아닙니다. 달콤한 꿈을 꾸었습니다."
-    "그런데 왜 그리 슬피 우느냐?"
-    "제자는 흐르는 눈물을 닦아내며 나지막히 말했다."
-    "그 꿈은 이루어질수 없기 때문입니다."
+        scene bg_room
+        play music "alarm.mp3" loop
+        "엄마: 건우야 건우야~~~~ 일어나야지 금요일 9시에 대학기초SW수업 있잖니~"
+        kim "...................."
+        stop music
+        ""
+        play music "last.mp3" 
+        "어느 깊은 가을밤,잠에서 깨어난 제자가 울고있었다."
+        "그 모습을 본 스승이 기이하게 여겨 제자에게 물었다."
+        "무서운 꿈을 꾸었느냐?"
+        "아닙니다"
+        "슬픈 꿈을 꾸었느냐?"
+        "아닙니다. 달콤한 꿈을 꾸었습니다."
+        "그런데 왜 그리 슬피 우느냐?"
+        "제자는 흐르는 눈물을 닦아내며 나지막히 말했다."
+        "그 꿈은 이루어질수 없기 때문입니다."
+    else:
+        kim "다희야… 우리 사귀자!!!"
+        jung "건우야,,,, "
+        hide jung_pretty3
+        show jung_smile
+        jung "그래…. ><"
+        
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
     return 
 
     
