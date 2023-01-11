@@ -2,9 +2,13 @@
 errors listed below, and try again.
 
 
-File "game/script.rpy", line 127: expected statement.
-    persistent.love[0] = 0
-                       ^
+File "game/script.rpy", line 525: reached end of line when expecting ':'.
+    if persistent.junglove<100
+                              ^
+
+File "game/script.rpy", line 551: expected statement.
+    else:
+        ^
 
 Ren'Py Version: Ren'Py 8.0.3.22090809
-Mon Nov 14 19:53:08 2022
+Thu Dec  1 21:48:23 2022
